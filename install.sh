@@ -32,7 +32,7 @@ else
 	echo "OpenNI already installed"
 fi
 
-if [ ! -d $PWD/kinect/Sensor/ ]; then
+if [ ! -d $LOC_DIR/kinect/Sensor/ ]; then
         echo "Installing Sensor"
 	cd $LOC_DIR/kinect/
         git clone https://github.com/PrimeSense/Sensor.git -b unstable
@@ -40,7 +40,7 @@ if [ ! -d $PWD/kinect/Sensor/ ]; then
         sed -i 's/make -j$(calc_jobs_number) -C ..\/Build/make -j1 -C ..\/Build/g' $LOC_DIR/kinect/Sensor/Platform/Linux/CreateRedist/RedistMaker
 	cd $LOC_DIR/kinect/Sensor/Platform/Linux/CreateRedist/
 	./RedistMaker Arm
-	cd $LOC_DIR/kinect/Sensor/Platform/Linux/Redist/Sensor-Bin-Linux-Arm-v5.1.0.41
+	cd $LOC_DIR/kinect/Sensor/Platform/Linux/Redist/Sensor-Bin-Linux-Arm-v5.1.6.6/
 	sudo ./install.sh
 else
         echo "Sensor already installed"
@@ -64,7 +64,7 @@ fi
 
 if [ ! -d $LOC_DIR/kinect/opencv-3.1.0/ ]; then
 	echo "Installing OpenCV"
-	cd $LOCDIR/kinect/
+	cd $LOC_DIR/kinect/
 	mkdir opencv
 	cd opencv
 	wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.1.0.zip
@@ -79,7 +79,7 @@ if [ ! -d $LOC_DIR/kinect/opencv-3.1.0/ ]; then
 	cmake -D CMAKE_BUILD_TYPE=RELEASE \
 	    -D CMAKE_INSTALL_PREFIX=/usr/local \
 	    -D WITH_OPENNI=ON \
-	    -D OPENCV_EXTRA_MODULES_PATH=~/kinect/opencv/opencv_contrib-3.1.0/modules \
+	    -D OPENCV_EXTRA_MODULES_PATH=$LOC_DIR/kinect/opencv/opencv_contrib-3.1.0/modules \
 	    -D BUILD_EXAMPLES=ON ..
 	make
 	sudo make install
